@@ -136,3 +136,124 @@ These protocols illustrate how the application layer facilitates user interactio
 | Subsequent HTTP messages between the same client and server are sent over an open connection.           | Operating system overhead for each TCP connection is incurred.                      |
 | The client sends requests as soon as it encounters a referenced object.                                 | Browsers often open parallel TCP connections to fetch referenced objects.           |
 | Only one RTT is needed for all referenced objects after the connection is established.                  | At most one object can be sent over a single TCP connection.                        |
+
+# HTTP Messages: Requests and Responses
+
+HTTP (Hypertext Transfer Protocol) enables communication between clients (e.g., web browsers) and servers, exchanging data across the web. HTTP messages are divided into **requests** (sent by the client to the server) and **responses** (sent by the server to the client).
+
+---
+
+## 1. HTTP Message Structure
+
+HTTP messages contain three main parts:
+- **Request Line / Status Line**
+- **Headers**
+- **Body** (optional)
+
+Each HTTP request and response follows this structure, though not all parts are required for every message.
+
+---
+
+## 2. HTTP Request
+
+An HTTP request initiates an action from the client to the server. It includes:
+
+### a. Request Line
+- **Method**: Specifies the action, e.g., `GET`, `POST`, `PUT`, `DELETE`.
+- **URL**: Specifies the location or endpoint of the resource.
+- **HTTP Version**: Indicates the HTTP version used (e.g., HTTP/1.1 or HTTP/2).
+
+   **Example**:
+
+
+### b. Headers
+Headers provide additional information about the request or client in key-value pairs.
+
+**Common Headers**:
+- **Host**: Specifies the server domain (e.g., `Host: www.example.com`).
+- **User-Agent**: Identifies the client (e.g., browser).
+- **Accept**: Lists acceptable MIME types (e.g., `Accept: text/html`).
+- **Content-Type**: Specifies the body format for data (e.g., `Content-Type: application/json` for POST requests).
+
+**Example**:
+
+### c. Body
+The body contains data sent to the server, present in requests like `POST`, `PUT`, or `PATCH`.
+
+**Example (POST form data)**:
+
+---
+
+## 3. HTTP Response
+
+HTTP responses are server replies to client requests, containing:
+
+### a. Status Line
+- **HTTP Version**: Version used by the server (e.g., HTTP/1.1).
+- **Status Code**: Indicates the request result.
+- **Status Message**: Brief message describing the status code.
+
+**Common Status Codes**:
+- **200 OK**: Successful request.
+- **404 Not Found**: Resource could not be found.
+- **500 Internal Server Error**: Server error.
+
+**Example**:
+
+### c. Body
+Contains the requested content (e.g., HTML, JSON, XML, images).
+
+---
+
+## 4. HTTP Methods
+
+HTTP provides several methods, each with a specific purpose. Here are the most commonly used ones:
+
+| **Method** | **Description** |
+|------------|-----------------|
+| **GET**    | Requests data from the server at the specified URL. |
+| **POST**   | Sends data to the server, often for form submissions or uploads. |
+| **PUT**    | Updates a resource on the server at a specified URL. |
+| **DELETE** | Deletes the specified resource. |
+| **HEAD**   | Similar to GET, but retrieves headers only (not the body). |
+| **OPTIONS**| Describes the communication options for the target resource. |
+
+---
+
+## 5. HTTP Versions
+
+- **HTTP/1.0**: Opens a new TCP connection for each request, inefficient for multiple requests.
+- **HTTP/1.1**: Supports persistent connections, allowing multiple requests over a single connection.
+- **HTTP/2**: Introduces multiplexing (multiple requests over a single connection simultaneously) for better performance.
+- **HTTP/3**: Uses QUIC instead of TCP, reducing latency and enhancing reliability.
+
+---
+
+## 6. Persistent vs. Non-Persistent HTTP
+
+| **Persistent HTTP**                                                                                     | **Non-Persistent HTTP**                                                             |
+|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
+| The server leaves the connection open after sending a response.                                         | Requires 2 RTTs (Round-Trip Times) per object.                                      |
+| Subsequent HTTP messages between the same client/server are sent over an open connection.               | OS incurs overhead for each TCP connection.                                         |
+| The client sends requests as soon as it encounters a referenced object.                                 | Browsers often open parallel TCP connections to fetch referenced objects.           |
+| Only one RTT is needed for all referenced objects after connection setup.                               | At most one object can be sent over a single TCP connection.                        |
+
+---
+
+## 7. HTTP Status Codes Categories
+
+HTTP status codes are divided into five categories:
+
+| **Category** | **Range**      | **Description**                                |
+|--------------|----------------|------------------------------------------------|
+| **1xx**      | 100-199        | Informational responses.                       |
+| **2xx**      | 200-299        | Success - action successfully received and accepted. |
+| **3xx**      | 300-399        | Redirection - further action is required.      |
+| **4xx**      | 400-499        | Client Error - bad syntax or cannot fulfill the request. |
+| **5xx**      | 500-599        | Server Error - server failed to fulfill a valid request. |
+
+---
+
+## 8. Example of an HTTP Request and Response
+
+### Example HTTP Request (GET Request)
