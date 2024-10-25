@@ -128,3 +128,12 @@ These protocols illustrate how the application layer facilitates user interactio
 - After completing the handshake, the client sends an HTTP request message along with an acknowledgment into the TCP connection.
 - The server responds by sending the HTML file over the established connection.
 - The total response time is approximately two RTTs plus the transmission time for the HTML file.
+
+| **Basis**                      | **Persistent HTTP**                                                                                           | **Non-Persistent HTTP**                                                   |
+|--------------------------------|--------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|
+| **Connection Type**            | A single TCP connection is kept open for multiple HTTP requests and responses.                              | A new TCP connection is opened for each HTTP request and closed after the response. |
+| **Efficiency**                 | More efficient as it reduces connection overhead, leading to faster data transfer.                           | Less efficient due to the overhead of opening and closing multiple connections.     |
+| **Latency**                    | Lower latency because fewer connections need to be established.                                             | Higher latency as each request requires a separate connection setup.                |
+| **Network Load**               | Reduces network load by minimizing the number of connections established.                                   | Increases network load with frequent connection establishment and termination.      |
+| **Use Case**                   | Commonly used in modern web browsing and applications to enhance performance.                               | Typically used in older HTTP/1.0 implementations or for simple requests.            |
+| **Implementation**             | Default in HTTP/1.1 and HTTP/2.0, where connections are persistent unless specified otherwise.              | Default in HTTP/1.0, where each request-response pair uses a separate connection.   |
