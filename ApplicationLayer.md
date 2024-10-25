@@ -75,3 +75,12 @@ UDP is a Transport Layer protocol. UDP is a part of the Internet Protocol suite,
 | **Overhead**                | TCP has a low overhead, but it’s higher than UDP.                                                                                                                | UDP has very low overhead.                                                                                                   |
 | **Applications**            | TCP is suitable for applications requiring reliable and secure communication, such as email, web browsing, and military services.                               | UDP is used where quick communication is needed, and reliability is not critical, such as in VoIP, gaming, and streaming.    |
 
+## Internet Applications and Transport Protocols :
+| **Application**               | **Application Layer Protocol**                                    | **Transport Protocol**   |
+|-------------------------------|-------------------------------------------------------------------|---------------------------|
+| **File Transfer / Download**  | FTP [RFC 959]                                                    | TCP                       |
+| **E-mail**                    | SMTP [RFC 5321]                                                  | TCP                       |
+| **Web Documents**             | HTTP [RFC 7230, 9110]                                            | TCP                       |
+| **Internet Telephony**        | SIP [RFC 3261], RTP [RFC 3550], or proprietary HTTP [RFC 7230], DASH | TCP or UDP               |
+| **Streaming Audio / Video**   | HTTP [RFC 7230], DASH                                            | TCP                       |
+| **Interactive Games**         | WOW, FPS (proprietary)                                           | UDP or TCP                |
