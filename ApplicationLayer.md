@@ -260,3 +260,16 @@ HTTP status codes are divided into five categories:
 ## 8. Example of an HTTP Request and Response
 
 ### Example HTTP Request (GET Request)
+
+### 2.3.3 Cookies
+
+- There are situations where web sites need to identify users, for security or personalization purposes. HTTP uses cookies to achieve user identification and tracking.
+- Cookies have four components: a `cookie header` in HTTP `response` and `request` messages, a `cookie file` on the user's end system, and a `back end database` on the web site.
+
+<img src="https://lh3.googleusercontent.com/pw/ADCreHfFwZxxD_q6lNIW4MotRBCCUUmdnTTAst3aa9ByyF1GoQxQGr9oMpd-3hudmL_VvIqWZhb9sF4Dsw3YYeV3N38qe-HBB9afByGpuvPj1gSfGeATqwiuckHdhRVluCOM_E_NXmqLYBN82wpku2x_BUd1=w1326-h1130-s-no" width="620" height="630">
+
+- Cookies work by sending a unique identification number in a `Set-cookie` header from the server to the user's browser.
+- The browser stores the identification number and sends it back to the server in a Cookie header with subsequent requests.
+- Cookies are used to track user activity and offer personalized services, like shopping carts or recommendations.
+- Users can be identified over multiple sessions by maintaining the same identification number in cookies.
+- Cookies are controversial due to potential privacy concerns, as websites can gather and potentially sell user information.
