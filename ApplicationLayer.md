@@ -329,5 +329,12 @@ The caching process generally works as follows:
 - **Complexity in Management**: Configuring and managing caching rules can be complex, especially for frequently updated content.
 
 ---
+#### Application Layer Protocol: SMTP
+> A typical message starts its journey in the sender’s user agent, then travels to the sender’s mail server, and then travels to the recipient’s mail server, where it is deposited in the recipient’s mailbox. Reattempts are often done every 30 minutes
 
+### 2.4.1 Email Components
+
+- **User Agents:** Tools like Microsoft Outlook, Apple Mail, and Gmail, allowing users to manage emails.
+- **Mail Servers:** The central infrastructure, hosting mailboxes for recipients like Bob.
+- **SMTP (Simple Mail Transfer Protocol):** The principal protocol to send emails between servers.
 
