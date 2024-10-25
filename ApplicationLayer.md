@@ -273,3 +273,20 @@ HTTP status codes are divided into five categories:
 - Cookies are used to track user activity and offer personalized services, like shopping carts or recommendations.
 - Users can be identified over multiple sessions by maintaining the same identification number in cookies.
 - Cookies are controversial due to potential privacy concerns, as websites can gather and potentially sell user information.
+
+### 2.3.4 Web Caching
+
+- Web caches, or proxy servers, handle HTTP requests on behalf of origin servers.
+- Caches store copies of requested objects, reducing the need to fetch them from the origin server.
+- Users can configure browsers to direct requests through caches for faster responses.
+- Caches serve as both servers (to clients) and clients (to servers) in the caching process.
+- Installed by ISPs and institutions, caches enhance performance and lower bandwidth costs.
+- Benefits include faster responses, reduced bandwidth upgrades, and decreased overall Internet traffic.
+- Content Distribution Networks (CDNs) use distributed caching to localize content delivery.
+
+> An HTTP request message is a so called conditional GET message if (1) the request message uses the GET method and (2) the request message includes an If-Modified-Since: header line.
+
+- `Conditional GET` checks for freshness by comparing the `If-Modified-Since` header with object modification date.
+- If an object hasn't changed, a `304 Not Modified response` allows the cache to serve the locally cached object.
+
+> value of the If-modified-since: header line is exactly equal to the value of the Last-Modified: header line that was sent by the server initially.
