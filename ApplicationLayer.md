@@ -84,3 +84,25 @@ UDP is a Transport Layer protocol. UDP is a part of the Internet Protocol suite,
 | **Internet Telephony**        | SIP [RFC 3261], RTP [RFC 3550], or proprietary HTTP [RFC 7230], DASH | TCP or UDP               |
 | **Streaming Audio / Video**   | HTTP [RFC 7230], DASH                                            | TCP                       |
 | **Interactive Games**         | WOW, FPS (proprietary)                                           | UDP or TCP                |
+### Application Layer Protocols :
+Application layer protocols are those protocols utilized at the application layer of the OSI (Open Systems Interconnection) and TCP/IP models. They facilitate communication and data sharing between software applications on various network devices. These protocols define the rules and standards that allow applications to interact and communicate quickly and effectively over a network.
+<br>
+
+
+**HTTP (Hypertext Transfer Protocol):** Primarily used for web communications. It's a stateless protocol where a client (browser) requests resources from a server. HTTP/1.1 added persistent connections, and HTTP/2 introduced multiplexing to improve efficiency. HTTPS adds encryption for secure communication.
+
+**Web Protocols (HTTP + HTML):** The Web relies on HTTP for transmitting resources, while HTML (HyperText Markup Language) structures content. Browsers use HTTP to fetch HTML and other resources, providing users with the interface for viewing and interacting with content.
+
+**FTP (File Transfer Protocol):** Used for transferring files between client and server. It uses separate control and data connections, making it efficient for large file transfers.
+
+**SMTP (Simple Mail Transfer Protocol):** The main protocol for sending emails. Works in tandem with POP3 or IMAP, which retrieve emails from the server.
+
+**DNS (Domain Name System):** Translates human-readable domain names to IP addresses, enabling easier access to resources.
+
+**POP3/IMAP:** These protocols allow users to retrieve emails from servers. IMAP supports syncing across multiple devices, while POP3 downloads messages to one device.
+
+**Telnet/SSH:** Protocols for remote login to networked computers, where SSH offers encrypted connections, making it more secure than Telnet.
+
+These protocols illustrate how the application layer facilitates user interaction with network services.  Primarily used for web communications. It's a stateless protocol where a client (browser) requests resources from a server. HTTP/1.1 added persistent connections, and HTTP/2 introduced multiplexing to improve efficiency. HTTPS adds encryption for secure communication.
+
+##### Web And HTTP
