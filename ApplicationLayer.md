@@ -104,5 +104,27 @@ Application layer protocols are those protocols utilized at the application laye
 **Telnet/SSH:** Protocols for remote login to networked computers, where SSH offers encrypted connections, making it more secure than Telnet.
 
 These protocols illustrate how the application layer facilitates user interaction with network services.  Primarily used for web communications. It's a stateless protocol where a client (browser) requests resources from a server. HTTP/1.1 added persistent connections, and HTTP/2 introduced multiplexing to improve efficiency. HTTPS adds encryption for secure communication.
+##  Application Layer Protocol: Web and HTTP
+- **HTTP**: `HTTP (HyperText Transfer Protocol)` is the primary application layer protocol of the World Wide Web. It relies on client and server programs that communicate by exchanging HTTP messages. Web pages are composed of objects, which are individual files with unique URLs.
+- **Web Page Structure**: A web page typically includes a base HTML file and referenced objects like images, stylesheets, and videos. Objects are identified by URLs, which consist of a `hostname` and a `path name`.
+- **HTTP and TCP**: HTTP uses TCP (Transmission Control Protocol) as its underlying transport protocol. Clients initiate TCP connections with servers to exchange HTTP messages.
 
-##### Web And HTTP
+> The HTTP client first initiates a TCP connection with the server. Once the connection is established, the browser and the server processes access TCP through their socket interfaces. 
+
+> HTTP need not worry about lost data or the details of how TCP recovers from loss or reordering of data within the network. 
+
+- **Stateless Protocol**: HTTP is a stateless protocol, meaning servers `don't store client specific information.` If a client requests the same object multiple times, the server doesn't remember previous requests.
+- **HTTP Versions**: `HTTP/1.0` and `HTTP/1.1` are common versions, with HTTP/1.1 supporting persistent connections. Newer versions like HTTP/2 are also emerging.
+### 2.3.1 Non Persistent and Persistent Connections 
+- Non persistent connections create a new connection for each requested object. Persistent connections allow multiple objects to be sent over the same connection, improving efficiency.
+
+> Although HTTP uses persistent connections in its default mode, HTTP clients and servers can be configured to use non persistent connections instead.
+
+> round trip time (RTT), which is the time it takes for a small packet to travel from client to server and then back to the client. The RTT includes packet propagation delays, packet queuing delays in intermediate routers and switches, and packet processing delays.
+
+<img src="https://lh3.googleusercontent.com/pw/ADCreHcP6O3E33NG7QnDmzX1ZUYsYN4WdmaGZSwLxO79aCwgpc2VRQI5lV8oSDjGyga6BN6nbLTnXzZnfZe49s3o9JvbZT35Z1vqiUG1c97LMJbYwZwMhTgBitpNwl5znilEEFnGID7QpG4z98mGuwdk6xPg=w1456-h1130-s-no" width="520" height="520">
+
+- The three way handshake involves the client and server exchanging messages, taking one round trip time (RTT) for this process.
+- After completing the handshake, the client sends an HTTP request message along with an acknowledgment into the TCP connection.
+- The server responds by sending the HTML file over the established connection.
+- The total response time is approximately two RTTs plus the transmission time for the HTML file.
