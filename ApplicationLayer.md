@@ -473,3 +473,51 @@ For example, large-scale websites like Google or Amazon replicate servers across
 > When a host makes a DNS query, the query is sent to the local DNS server, which acts a proxy, forwarding the query into the DNS server hierarchy.
 
 - DNS extensively utilizes caching to enhance performance. These are stored temporarily and it allows DNS servers to quickly respond to subsequent queries for the same hostname.
+
+
+# Recursive vs. Iterative DNS Queries
+
+When a DNS client (like a web browser) needs to resolve a domain name, it performs a **DNS query** to find the corresponding IP address. DNS queries can be performed in two ways: **Recursive** and **Iterative**. Each method has its own characteristics, roles, and behavior in the domain resolution process.
+
+---
+
+## 1. Recursive DNS Queries
+
+In a **recursive query**, the **DNS client relies entirely on a DNS resolver** to find the IP address for a domain. The resolver is responsible for querying other DNS servers on behalf of the client and returning the final IP address.
+
+### How Recursive Queries Work:
+1. The client sends a request for a domain (e.g., `www.example.com`) to the recursive resolver.
+2. The recursive resolver queries various DNS servers on behalf of the client, following the hierarchy:
+   - Root DNS servers
+   - Top-Level Domain (TLD) DNS servers (like `.com` or `.org`)
+   - Authoritative DNS server for the specific domain (`example.com`)
+3. The resolver collects the IP address of the domain and returns it to the client.
+
+
+---
+
+## 2. Iterative DNS Queries
+
+In an **iterative query**, the **DNS resolver does not do all the work** but instead responds with the address of the next DNS server in the hierarchy if it doesn’t know the answer. This shifts the responsibility back to the client to continue the query process.
+
+### How Iterative Queries Work:
+1. The client sends a request for a domain (e.g., `www.example.com`) to the DNS server.
+2. If the DNS server doesn’t know the IP address, it returns the IP of the next DNS server (e.g., a root server).
+3. The client then contacts the returned server (e.g., the TLD server for `.com`).
+4. This process repeats until the client receives the final IP address from the authoritative DNS server for `example.com`.
+
+<img src="https://lh3.googleusercontent.com/pw/ADCreHcDzbK4FY8RExEyQO82XsXu_OFQXOqMXfJx6q8TO_Tx4wYRJt9WaiktQr-4bF482giEXJmGfkLMszdS7Ufn_sjYphuuVOdpKVn7RI6laoHLFKiPUtFpU_kOUnZ_UJN7NjeJdt5Bp65KPlNKkiEpFrIF=w1708-h1044-s-no" width="780" height="520">
+
+---
+
+| Feature                   | **Recursive DNS Query**                                                                 | **Iterative DNS Query**                                                      |
+|---------------------------|-----------------------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| **Responsibility**        | The DNS resolver handles the entire process for the client.                             | The client handles the query process and contacts each DNS server iteratively. |
+| **Load Distribution**     | Higher load on the DNS resolver due to the complete query resolution.                   | Lower load on individual DNS servers, as each only provides the next server.  |
+| **Caching**               | DNS resolvers typically cache responses, improving efficiency on repeated queries.      | Caching is limited, as each query is managed individually by the client.      |
+| **Number of Requests**    | The client only makes one request to the DNS resolver.                                  | The client makes multiple requests to different DNS servers.                  |
+| **Response Time**         | Potentially faster due to caching and fewer requests.                                   | Can be slower due to multiple iterative queries.                              |
+| **Client Complexity**     | Simplified for the client, which only needs one response from the resolver.             | More complex, as the client must manage multiple DNS server interactions.     |
+
+---
+
