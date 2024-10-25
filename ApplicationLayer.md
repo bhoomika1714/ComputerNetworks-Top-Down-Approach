@@ -338,3 +338,8 @@ The caching process generally works as follows:
 - **Mail Servers:** The central infrastructure, hosting mailboxes for recipients like Bob.
 - **SMTP (Simple Mail Transfer Protocol):** The principal protocol to send emails between servers.
 
+### 2.4.2 SMTP Basics
+
+- SMTP transfers messages between sender and recipient mail servers at `Port 25`.
+- The client (sender's server) initiates a connection to the recipient's server via TCP.
+
