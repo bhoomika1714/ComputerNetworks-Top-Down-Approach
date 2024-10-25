@@ -367,7 +367,9 @@ Subject: Searching for the meaning of life.
 
 ### Domain Name System (DNS) in Application Layer:
 -
+
 The Domain Name System (DNS) is like the internet’s phone book. It helps you find websites by translating easy-to-remember names (like www.example.com) into the numerical IP addresses (like 192.0.2.1) that computers use to locate each other on the internet. Without DNS, you would have to remember long strings of numbers to visit your favorite websites. It is an application layer protocol for message exchange between clients and servers. It is required for the functioning of the Internet.
+
 -
 ### What is the Need for DNS?
 Every host is identified by the IP address but remembering numbers is very difficult for people also the IP addresses are not static therefore a mapping is required to change the domain name to the IP address. So DNS is used to convert the domain name of the websites to their numerical IP address.
@@ -452,8 +454,22 @@ For example, large-scale websites like Google or Amazon replicate servers across
 
 ---
 
-### Summary
+> gethostbyname() is the function call that an application calls in order to perform the translation.
 
-DNS services are more than just a translation system. By managing aliasing, supporting email routing, distributing traffic, and enabling server replication, DNS enhances the scalability, reliability, and accessibility of internet-based services.
-
+* DNS operates through query and reply messages using UDP datagrams on port 53.
+* DNS queries involve multiple servers globally distributed.
+* A simple centralized design for DNS is not feasible due to scalability issues.
+* Issues with centralized design: single point of failure, high traffic volume, distant database, and maintenance.
+* DNS uses a hierarchical structure and a distributed database., to handle the vast number of hosts on the Internet.
   
+### 2.5.2 Distributed, Hierarchical Database
+
+<img src="https://lh3.googleusercontent.com/pw/ADCreHfjtoFE2ozufMyfFi_xvvvjhwhvWHxaFcgn2jVCEG50nQsaQlTqhQQovC1HaJrlB0h8La--jGtCdoz8c6RxZVLsou9ISfsTEy7uaS-fjCMZNBiZtfTPnFpbVbYUDbQ49wyFPKQJJNUc-_7h4wmYm2IX=w1920-h710-s-no" width="580" height="220">
+
+- DNS uses three classes of servers: `Root` DNS servers, `top level domain (TLD)` DNS servers, and `authoritative` DNS servers.
+- Root DNS servers provide IP addresses for TLD servers. TLD servers provide IP addresses for authoritative DNS servers Authoritative DNS servers store DNS records for specific organizations.
+- A `local DNS server`, specific to an ISP, also plays a crucial role in DNS queries. It cache DNS information to reduce query traffic and improve performance.
+
+> When a host makes a DNS query, the query is sent to the local DNS server, which acts a proxy, forwarding the query into the DNS server hierarchy.
+
+- DNS extensively utilizes caching to enhance performance. These are stored temporarily and it allows DNS servers to quickly respond to subsequent queries for the same hostname.
