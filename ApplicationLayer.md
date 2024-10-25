@@ -195,8 +195,11 @@ HTTP responses are server replies to client requests, containing:
 
 **Common Status Codes**:
 - **200 OK**: Successful request.
+- **301 Moved Permanently** :requested object moved, new location specified later in this message (in Location: field)
+-**400 Bad Request** :request msg not understood by server
 - **404 Not Found**: Resource could not be found.
 - **500 Internal Server Error**: Server error.
+- **505 HTTP Version Not Supported**:
 
 **Example**:
 
