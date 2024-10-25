@@ -343,3 +343,24 @@ The caching process generally works as follows:
 - SMTP transfers messages between sender and recipient mail servers at `Port 25`.
 - The client (sender's server) initiates a connection to the recipient's server via TCP.
 
+### 2.4.3 Mail Message Structure
+
+- Email messages consist of a `header` and a `body`.
+- The header includes sender and recipient information, such as `"From," "To," and "Subject."`. The header lines and the body of the message are separated by a blank line (that is, by CRLF).
+- These headers are distinct from SMTP commands used for server handshake communication.
+
+```http
+From: alice@crepes.fr
+To: bob@hamburger.edu
+Subject: Searching for the meaning of life.
+```
+
+### 2.4.4 Mail Access Protocols
+
+<img src="https://lh3.googleusercontent.com/pw/ADCreHe0fyv4ULp_uamEsceCVVhVIa89gH-EYeg8F5QQ9MJOB6_HPfvS8QpwFXnBbpd_o5WBJf3SYSGt_KwkgMRBQ0BUtFHZP6lTTLAvPlWIfoypiutfj2fm5ZktaSNOuMKNcfdEXXH7OafVuFbqC-vIcfa4=w1876-h442-s-no" width="680" height="220">
+
+> Bob’s user agent can’t use SMTP to obtain the messages because obtaining the messages is a pull operation, whereas SMTP is a push protocol.
+
+- Users retrieve their email messages from a shared mail server using either HTTP or IMAP.
+- HTTP is often used for web based email clients like Gmail, while IMAP is common with clients like Microsoft Outlook.
+- Both the HTTP & IMAP approaches allow to manage folders, move messages to folders, delete messages, mark messages as important, and so on.
