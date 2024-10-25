@@ -521,3 +521,45 @@ In an **iterative query**, the **DNS resolver does not do all the work** but ins
 
 ---
 
+
+
+## DNS Records
+
+DNS records are database entries that provide key details for domain resolution. Each record type serves a specific purpose:
+- **A (Address) Record**: Maps a domain name to an IPv4 address.
+- **AAAA (IPv6 Address) Record**: Maps a domain name to an IPv6 address.
+- **CNAME (Canonical Name) Record**: Points one domain to another, used for aliases.
+- **MX (Mail Exchange) Record**: Directs emails to mail servers for a domain.
+- **TXT (Text) Record**: Allows text-based information to be added, often for security verification like SPF and DKIM.
+
+---
+
+## DNS Protocol Messages
+
+DNS uses protocol messages to resolve domain names, sent over UDP (usually) or TCP (if larger than 512 bytes). The key message types are:
+- **Query**: Sent from a client to request the IP address for a domain.
+- **Response**: Sent by DNS servers with the requested IP or an error if the domain is unresolved.
+- **Update**: Used to add or delete records within a DNS zone.
+- **Notification**: Alerts other DNS servers about changes to DNS records.
+
+---
+
+## Getting Your Info into the DNS
+
+To add information (like domain records) into the DNS system, follow these steps:
+1. **Register your domain** with a domain registrar (e.g., GoDaddy).
+2. **Add DNS records** (A, CNAME, MX, etc.) through your DNS hosting provider’s dashboard.
+3. **Propagation**: Changes propagate across global DNS servers, typically within 24-48 hours.
+
+This information will then be available for clients querying your domain.
+
+---
+
+## DNS Security
+
+DNS security is essential to prevent threats like **DNS spoofing** and **DDoS attacks**. Key security measures include:
+- **DNSSEC (DNS Security Extensions)**: Adds a layer of authentication to DNS responses, preventing spoofing.
+- **TLS and HTTPS**: Secure DNS communication channels (e.g., DoH, DNS over HTTPS).
+- **Rate Limiting**: Protects against DDoS by limiting queries per IP.
+- **Monitoring and Logging**: Tracks suspicious activity on DNS servers to quickly respond to security incidents.
+
