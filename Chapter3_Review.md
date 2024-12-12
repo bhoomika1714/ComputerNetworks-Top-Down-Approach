@@ -1,143 +1,138 @@
 
+### **1. What is CRC?**
+CRC (Cyclic Redundancy Check) is an error-detecting code used in digital networks and storage devices to detect accidental changes to raw data. It works by performing binary division of the data bits by a predetermined generator polynomial and appending the remainder (CRC bits) to the data. 
 
-### **1. Explain the need for the data plane and control plane in the network layer.**  
-- **Data Plane**: This plane handles the actual packet forwarding. It is responsible for deciding how a packet arriving at a router's input port is forwarded to the appropriate output port. It operates at high speeds and focuses on data processing and transmission.  
-  - **Need**: Ensures fast packet forwarding, routing, and handling of data at scale.  
+#### Example:
+Information: `1100`  
+Generator Polynomial: `1011`  
 
-- **Control Plane**: This plane manages the routing process by determining the best path for packets. It uses routing algorithms and protocols to maintain a routing table.  
-  - **Need**: Manages and updates routing decisions dynamically, enabling adaptability and efficient network utilization.  
+**Step 1:** Append zeros equal to the degree of the generator polynomial to the data:  
+New data: `1100000` (three zeros appended since \( \text{degree} = 3 \))  
 
----
+**Step 2:** Perform binary division of the new data (`1100000`) by the generator polynomial (`1011`):  
+- Perform XOR for each division step (division in binary uses XOR).  
+  ```
+      1011 | 1100000
+             1011
+            ------
+             0110 (remainder after first XOR)
+             0110
+            ------
+             0000 (remainder = 0)
+  ```
+- The remainder after division is `000`.  
 
-### **2. IPv4 protocol is an unreliable protocol. Is it possible to make it reliable for the application layer? Justify your answer.**  
-- **Answer**: Yes, IPv4 can be made reliable by using protocols like **TCP** in the transport layer.  
-  - **Justification**: TCP provides features like:  
-    - Error detection and correction.  
-    - Acknowledgments for received packets.  
-    - Sequence numbers to reorder packets.  
-    - Retransmission of lost packets.  
-    - Flow control and congestion control.  
-  - **Conclusion**: While IPv4 itself is unreliable, reliability is achieved at higher layers (e.g., TCP in the transport layer).
-
----
-
-## Network Layer Numerical Problems
-
-### 1. IP Datagram Analysis
-#### Header (Hexadecimal): `45 00 00 54 00 03 00 00 20 06 00 00 7C 4E 03 02 B4 0E 0F 02`
-
-- **a. Are there any options?**
-  - No, the header length is 5 words (20 bytes), which is the minimum length. No options are present.
-
-- **b. Is the packet fragmented?**
-  - No, as the fragmentation flag value is `0` and the fragment offset is `0`.
-
-- **c. What is the size of the data?**
-  - Total length = `0x0054 = 84 bytes`
-  - Header length = 20 bytes
-  - **Data size = 84 - 20 = 64 bytes**
-
-- **d. Is a checksum used?**
-  - Yes, the checksum field is included (`0x0000`).
-
-- **e. How many more routers can the packet travel to?**
-  - Time-to-Live (TTL) = `0x20 = 32`
-  - **The packet can travel through 32 more routers.**
-
-- **f. What is the identification number of the packet?**
-  - Identification field = `0x0003 = 3`
-
-- **g. What is the type of service?**
-  - ToS field = `0x00` (default service)
+**Step 3:** Append the remainder to the original data:  
+Transmitted data = `1100` + `000` = `1100000`.
 
 ---
 
-### 2. Subnet Addressing
-**Given:** Subnet prefix `223.1.17/24`
+### **2. Transmitted bit stream with CRC**
+#### Given:
+Data: `10011101`  
+Generator Polynomial: \( x^3 + 1 \) → Binary = `1001`
 
-#### Subnetting Requirements:
-1. Subnet 1: Requires 4 interfaces
-   - **Subnet Address:** `223.1.17.0/30`
-2. Subnet 2: Requires 6 interfaces
-   - **Subnet Address:** `223.1.17.4/29`
-3. Subnet 3: Requires 12 interfaces
-   - **Subnet Address:** `223.1.17.16/28`
+**Step 1:** Append three zeros to the data:  
+New data = `10011101000`
 
----
+**Step 2:** Perform binary division:  
+Divide `10011101000` by `1001`.  
+- Resulting remainder (CRC bits) = `111`.  
 
-### 3. Datagram Fragmentation
-**Given:**
-- Datagram size = 2400 bytes
-- MTU = 700 bytes
-- Header size = 20 bytes
-- Data size per fragment = MTU - Header = 700 - 20 = 680 bytes
+**Step 3:** Transmitted bit string:  
+`10011101` + `111` = `10011101111`.
 
-#### Number of Fragments:
-\[ \text{Number of Fragments} = \lceil \frac{2400}{680} \rceil = 4 \]
-
-#### Fragment Fields:
-1. **Fragment 1**:
-   - Offset = 0
-   - Data size = 680 bytes
-   - Flags = MF (More Fragments) = 1
-
-2. **Fragment 2**:
-   - Offset = \( \frac{680}{8} = 85 \)
-   - Data size = 680 bytes
-   - Flags = MF = 1
-
-3. **Fragment 3**:
-   - Offset = \( \frac{1360}{8} = 170 \)
-   - Data size = 680 bytes
-   - Flags = MF = 1
-
-4. **Fragment 4**:
-   - Offset = \( \frac{2040}{8} = 255 \)
-   - Data size = 360 bytes (remaining data)
-   - Flags = MF = 0
+#### Error detection:
+If the third bit is inverted during transmission, the received bit string becomes `10111101111`.  
+- Perform binary division of the received string by `1001`.  
+- If the remainder is non-zero, the error is detected.
 
 ---
 
-### 4. Maximum Hosts Per Subnet
-**Given Subnet Mask:** `255.255.248.0`
-
-- Subnet bits = \( \log_2(256 - 248) = 3 \)
-- Host bits = 32 - (16 + 3) = 13
-- Maximum hosts = \( 2^{13} - 2 = 8190 \)
-
----
-
-### 5. Network and Broadcast Addresses
-**Given:** `182.44.82.16/26`
-
-- Block size = \( 2^{32-26} = 64 \)
-- **Network Address:** `182.44.82.0`
-- **Broadcast Address:** `182.44.82.63`
+### **3. Forward Error Correction (FEC) vs. Retransmission**
+| **Aspect**             | **Forward Error Correction (FEC)**     | **Error Correction by Retransmission**       |
+|------------------------|---------------------------------------|---------------------------------------------|
+| **Definition**         | Corrects errors during transmission without retransmission. | Detects errors and requests retransmission of corrupted data. |
+| **Use Case**           | Used in real-time applications (e.g., video streaming). | Used in applications where retransmission is feasible. |
+| **Overhead**           | Higher computational complexity.       | Additional transmission time for error recovery. |
+| **Reliability**        | Good for correcting small errors.      | Ensures perfect error correction. |
 
 ---
 
-### 6. ISP Subnets
-**Given:** `245.248.128.0/20`
+### **4. Internet checksum**
+#### Given:
+String: `"network"`  
+ASCII values:  
+- `n = 0x6E`, `e = 0x65`, `t = 0x74`, `w = 0x77`, `o = 0x6F`, `r = 0x72`, `k = 0x6B`.
 
-- Total addresses = \( 2^{32-20} = 4096 \)
-- **Organization A:** `245.248.128.0/21` (2048 addresses)
-- **Organization B:** `245.248.136.0/22` (1024 addresses)
-- **Remaining:** 1024 addresses
+**Step 1:** Pair bytes for checksum calculation:  
+```
+0x6E65 + 0x7477 + 0x6F72 + 0x6B00
+```
+
+**Step 2:** Add values and handle carry:  
+Sum = \( 0x6E65 + 0x7477 + 0x6F72 + 0x6B00 = 0x22FA4 \).  
+Handle overflow: \( 0x22FA4 → 0x2FA4 + 0x02 = 0x2FA6 \).  
+
+**Step 3:** Complement the result:  
+Checksum = \( \sim 0x2FA6 = 0xD059 \).  
+
+---
+
+### **5. Two-dimensional parity**
+#### Given:
+Bit pattern: `1010101010101011`  
+4-bit data chunks:  
+```
+1010  
+1010  
+1010  
+1011  
+```
+
+**Step 1:** Compute row and column parity:  
+- Row parity: Add parity bits for each row (odd parity).  
+- Column parity: Add parity bits for each column (odd parity).  
+
+**Step 2:** Correctable bits:  
+In a 2D parity scheme, **single-bit errors** can be detected and corrected.
 
 ---
 
-### 7. Fragmentation and Reassembly
-**Given:**
-- MTUs = 1024 bytes and 576 bytes
-- TCP message size = 1024 bytes + 20-byte header
-
-#### Fragments:
-1. **First Fragment:**
-   - Data size = 1024 bytes
-   - Offset = 0
-
-2. **Second Fragment:**
-   - Data size = 552 bytes (576 - 20)
-   - Offset = \( \frac{1024}{8} = 128 \)
+### **6. Hamming Code**
+#### Given:
+Message: `111011`  
+**Step 1:** Calculate parity bits:  
+Hamming code uses positions \( 2^n \) for parity bits. Place parity bits and calculate them based on XOR of relevant bits.  
 
 ---
+
+### **7. CRC with generator polynomial**
+#### Given:
+Data: `1010011110`  
+Generator: \( x^4 + x^2 + x + 1 \) → Binary = `11011`.  
+
+**Step 1:** Append zeros and divide:  
+Binary division provides the codeword.
+
+---
+
+### **8. Hamming Code for `1011101`**
+Use positions \( 2^n \) for parity bits. Calculate parity and check for errors. Correct flipped bit based on parity check.
+
+---
+
+### **9. 2D Parity for "TEST"**
+#### Given:
+String: `"TEST"` → ASCII values:  
+- `T = 84`, `E = 69`, `S = 83`, `T = 84`.  
+Represent as binary and compute row/column parities.
+
+#### Error correction:
+Locate the flipped bit using row and column parity bits.
+
+---
+
+### **10. FEC vs Retransmission**
+Refer to Question 3 for details.  
+
